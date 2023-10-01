@@ -92,12 +92,12 @@ public class ControllerDesktop implements Initializable {
         AppData appData = AppData.getInstance();
         JSONObject dades = appData.getItemData(type, index);
         URL resource = null;
-        if (type == "Jocs") {
+        if ("Jocs".equals(type)) {
             resource = this.getClass().getResource("assets/layout_info_item.fxml");
-        }else if (type == "Personatges") {
-            resource = this.getClass().getResource("assets/template_chara_info.fxml");
-        }else if (type == "Consoles") {
-            resource = this.getClass().getResource("assets/layout_info_item.fxml");
+        }else if ("Personatges".equals(type)) {
+            resource = this.getClass().getResource("assets/layout_info_chara.fxml");
+        }else if ("Consoles".equals(type)) {
+            resource = this.getClass().getResource("assets/layout_info_console.fxml");
         }
         info.getChildren().clear();
         try {
@@ -107,9 +107,14 @@ public class ControllerDesktop implements Initializable {
             itemController.setImage("assets/images/" + dades.getString("imatge"));
             itemController.setTitle(dades.getString("nom"));
             switch (type) {
-                case "Consoles": itemController.setText(dades.getString("procesador"));break;
+                case "Consoles": itemController.setDataText(dades.getString("data"));
+                                 itemController.setProcesadorText(dades.getString("procesador"));
+                                 itemController.setColorText(dades.getString("color"));
+                                 itemController.setVenudesText(String.valueOf(dades.getInt("venudes")));break;
                 case "Jocs": itemController.setText(dades.getString("descripcio"));break;
-                case "Personatges": itemController.setText(dades.getString("nom_del_videojoc"));break;
+                case "Personatges": itemController.setText(dades.getString("nom_del_videojoc"));
+                                    itemController.setColorText(dades.getString("color"));break;
+                default: break;
             }
             info.getChildren().add(itemTemplate);
             AnchorPane.setTopAnchor(itemTemplate, 0.0);
