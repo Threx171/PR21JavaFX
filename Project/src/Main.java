@@ -36,7 +36,7 @@ public class Main extends Application {
         });
 
         stage.setScene(scene);
-        stage.setTitle("JavaFX App");
+        stage.setTitle("NintendoDB");
         stage.setMinWidth(minWidth);
         stage.setWidth(windowWidth);
         stage.setMinHeight(minHeight);
