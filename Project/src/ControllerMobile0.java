@@ -1,8 +1,9 @@
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -20,7 +21,11 @@ public class ControllerMobile0  implements Initializable{
     private ListView<String> lPane;
 
     @FXML
-    private VBox yPane;
+    private VBox ymPane;
+    @FXML
+    private ScrollPane scPane;
+    @FXML
+    private Button backBtn;
 
     @FXML
     private AnchorPane info;
@@ -29,14 +34,21 @@ public class ControllerMobile0  implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        scPane.setVisible(false);
+        info.setVisible(false);
         lPane.getItems().addAll(opcions);
         lPane.setOnMouseClicked(event -> {loadList();});
-        loadList();
+        backBtn.setOnAction(event -> {
+            info.setVisible(false);
+            ymPane.getChildren().clear();
+            lPane.getItems().clear();
+            lPane.getItems().addAll(opcions);
+            scPane.setVisible(false);
+        });
     }
     public void loadList() {
+        String opcio = lPane.getSelectionModel().getSelectedItem();
         AppData appData = AppData.getInstance();
-        //showLoading();
-        /*
         appData.load(opcio, (result) -> {
             if (result == null) {
                 System.out.println("ControllerDesktop: Error loading.");
@@ -48,10 +60,9 @@ public class ControllerMobile0  implements Initializable{
                 }
             }
         });
-        */
     }
     public void showList(String opcioCarregada) throws Exception {
-        String opcioSeleccionada = "hola";
+        String opcioSeleccionada = lPane.getSelectionModel().getSelectedItem();
         if (opcioCarregada.compareTo(opcioSeleccionada) != 0) {
             return;
         }
@@ -60,7 +71,10 @@ public class ControllerMobile0  implements Initializable{
 
         URL resource = this.getClass().getResource("assets/template_list_item.fxml");
 
-        yPane.getChildren().clear();
+        lPane.getItems().removeAll(opcions);
+        scPane.setVisible(true);
+        scPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
         for (int i = 0; i < dades.length(); i++) {
             JSONObject consoleObject = dades.getJSONObject(i);
@@ -79,17 +93,11 @@ public class ControllerMobile0  implements Initializable{
                 itemTemplate.setOnMouseClicked(event -> {
                     showInfo(type,index);
                 });
-                yPane.getChildren().add(itemTemplate);
+                ymPane.getChildren().add(itemTemplate);
             }
         }
     }
-    /*
-    public void showLoading() {
-        yPane.getChildren().clear();
-        ProgressIndicator progressIndicator = new ProgressIndicator();
-        yPane.getChildren().add(progressIndicator);
-    }
-    */
+
     public void showInfo(String type, int index) {
         AppData appData = AppData.getInstance();
         JSONObject dades = appData.getItemData(type, index);
@@ -118,6 +126,8 @@ public class ControllerMobile0  implements Initializable{
                                     itemController.setColorText(dades.getString("color"));break;
                 default: break;
             }
+            info.setVisible(true);
+            scPane.setVisible(false);
             info.getChildren().add(itemTemplate);
             AnchorPane.setTopAnchor(itemTemplate, 0.0);
             AnchorPane.setRightAnchor(itemTemplate, 0.0);

@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="600.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ControllerMobile0">
@@ -14,8 +17,15 @@
                   <Font size="24.0" />
                </font>
             </Label>
+            <Button fx:id="backBtn" mnemonicParsing="false" style="-fx-background-color: transaprent; -fx-border-width: 0; -fx-text-fill: black;" text="Back" AnchorPane.topAnchor="20.0" />
          </children>
       </AnchorPane>
-      <ListView fx:id="lPane" prefHeight="200.0" prefWidth="200.0" style="-fx-font-size: 16px; -fx-font-weight: bold;" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0" />
+      <ListView fx:id="lPane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0" />
+      <ScrollPane fx:id="scPane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+         <content>
+            <VBox fx:id="ymPane" prefHeight="200.0" prefWidth="100.0" />
+         </content>
+      </ScrollPane>
+      <AnchorPane fx:id="info" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0" />
    </children>
 </AnchorPane>
